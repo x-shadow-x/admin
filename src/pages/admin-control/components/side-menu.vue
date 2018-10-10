@@ -1,6 +1,6 @@
 <template>
     <div id="sideMenu" class="side_menu">
-        <Menu theme="dark" @on-select="onMenuSelect">
+        <Menu theme="dark" @on-select="onMenuSelect" :active-name="currentMenu">
             <template v-for="item in menuTree">
                 <template v-if="item.children && item.children.length > 0">
                     <tree-menus :key="item.id" :menu="item" />
@@ -18,11 +18,13 @@
 <script>
 import Modules from '@/modules/module-config';
 import treeMenus from '@/pages/admin-control/components/tree-menus';
-console.log(Modules);
+import PageHelper from '@/helper/page-helper.js';
+
 export default {
     data() {
         return {
             theme: 'dark',
+            name: '/article',
             value: [20, 50]
         }
     },
@@ -30,6 +32,10 @@ export default {
     computed: {
         menuTree() {
             return Modules.menuTree;
+        },
+        currentMenu() {
+            console.log(PageHelper.currentMenu, 'AAAAAAA');
+            return PageHelper.currentMenu
         }
     },
 
@@ -37,8 +43,20 @@ export default {
         onMenuSelect(name) {
             this.$router.push(name);
             // this.$emit("select", name);
+            this.name = name;
+            // this.$emit("select", name);
             // console.log(name);
         }
+    },
+
+    watch: {
+        onMenuSelect(newVal) {
+            console.log(newVal, '=======onMenuSelect');
+        }
+    },
+
+    mounted() {
+        // console.log(PageHelper.currentMenu, '111111111');
     },
 
     components: {

@@ -44,23 +44,24 @@ export default {
 @import "~@/assets/css/reset.css";
 
 .main_root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
 
 .main_header {
-  display: flex;
-  align-items: center;
-  height: 60px;
-  background: #282c34;
-  color: #ddd;
-  padding-left: 10px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    background: #282c34;
+    color: #ddd;
+    padding-left: 10px;
+    flex-shrink: 0;
 }
 
 .main_body {
-  display: flex;
-  flex-grow: 1;
+    display: flex;
+    flex-grow: 1;
 }
 </style>

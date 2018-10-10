@@ -23,13 +23,12 @@ class PageManager {
         let _to = { ...to };
         if (!_to.query || !_to.query.pageToken) {
             _to.query = _to.query || {};
-            // _to.replace = true;
+            _to.replace = this._pageToken == 0;
             _to.query.pageToken = +this._pageToken + 1;
 
             next(_to);
             return true;
         } else {
-            console.log(_to.query.pageToken, '==========', this._pageToken);
             // 通过点击浏览器前进后退或者刷新按钮触发的路由变化，根据pageToken判断是哪种跳转方式~并记录当前pageToken
             this._jumpWay =
                 _to.query.pageToken > this._pageToken
@@ -37,7 +36,6 @@ class PageManager {
                     : _to.query.pageToken == this._pageToken
                         ? JUMP_WAY.RE_FRESH
                         : JUMP_WAY.PREV;
-            console.log(this._jumpWay);
             this._pageToken = _to.query.pageToken;
         }
 
