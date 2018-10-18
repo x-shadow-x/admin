@@ -15,7 +15,11 @@ const menu = {
     title: '统计分析',
     icon: 'ios-stats',
     to: '/count',
-    parentId: 'root'
+    parentId: 'root',
+    animate: {
+        enterClass: 'special_enter',
+        leaveClass: 'special_leave'
+    }
 };
 
 export default {

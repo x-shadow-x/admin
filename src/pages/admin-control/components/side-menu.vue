@@ -17,7 +17,7 @@
 
 <script>
 import Modules from '@/modules/module-config';
-import treeMenus from '@/pages/admin-control/components/tree-menus';
+import TreeMenus from '@/pages/admin-control/components/tree-menus';
 import PageHelper from '@/helper/page-helper.js';
 
 export default {
@@ -34,13 +34,13 @@ export default {
             return Modules.menuTree;
         },
         currentMenu() {
-            console.log(PageHelper.currentMenu, 'AAAAAAA');
-            return PageHelper.currentMenu
+            return PageHelper.currentMenu;
         }
     },
 
     methods: {
         onMenuSelect(name) {
+            console.log(this.currentMenu, '1111111');
             this.$router.push(name);
             // this.$emit("select", name);
             this.name = name;
@@ -60,7 +60,7 @@ export default {
     },
 
     components: {
-        treeMenus
+        TreeMenus
     },
 }
 </script>

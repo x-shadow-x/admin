@@ -1,0 +1,35 @@
+.normal_enter {
+    transform: translateX(20px);
+    opacity: 0;
+}
+
+.normal_leave-to {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.normal_enter-active {
+    transition: all .24s .24s;
+}
+
+.normal_leave-active {
+    transition: all .24s;
+}
+
+.pre_normal_enter {
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.pre_normal_leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+.pre_normal_enter-active {
+    transition: all .24s .24s;
+}
+
+.pre_normal_leave-active {
+    transition: all .24s;
+}

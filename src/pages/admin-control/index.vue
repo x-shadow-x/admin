@@ -2,12 +2,15 @@
     <div class="control_main">
         <SideMenu />
         <div class="contorl_content">
-            <router-view class="transition-view"></router-view>
-            <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. </h1>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. </h1>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. </h1>
+            <transition
+                :enter-class="transitionClass.enter"
+                :enter-active-class="transitionClass.enterActive"
+                :enter-to-class="transitionClass.enterTo"
+                :leave-class="transitionClass.leave"
+                :leave-active-class="transitionClass.leaveActive"
+                :leave-to-class="transitionClass.leaveTo">
+                <router-view class="transition_view"></router-view>
+            </transition>
         </div>
     </div>
 </template>
@@ -15,6 +18,7 @@
 <script>
 import SideMenu from './components/side-menu';
 import PageHelper from '@/helper/page-helper.js';
+import { PM } from "@/router/";
 
 export default {
     components: { SideMenu },
@@ -23,14 +27,26 @@ export default {
             currentMenu: ''
         };
     },
+
+    computed: {
+        transitionClass() {
+            return {
+                enter: PM.enterClass,
+                enterActive: `${PM.enterClass}-active`,
+                enterTo: `${PM.enterClass}-active`,
+                leave: PM.leaveClass,
+                leaveActive: `${PM.leaveClass}-active`,
+                leaveTo: `${PM.leaveClass}-to`
+            }
+        }
+    },
+
+    watch: {},
+    
     methods: {
         test() {}
     },
-    watch: {
-        $route(newVal) {
-            PageHelper.setCurrentMenu(newVal);
-        }
-    },
+    
     mounted() {
         PageHelper.setCurrentMenu(this.$route);
     }
@@ -38,7 +54,6 @@ export default {
 </script>
 
 <style scoped>
-
 .control_main {
     display: flex;
     flex-grow: 1;

@@ -19,29 +19,33 @@
 
 <script>
 import { PM } from "@/router/";
+
 export default {
     name: "app",
     data() {
         return {
-        transitionClass: {
-            
-        },
-        focus: false
+            focus: false
         };
     },
 
-  watch: {
-    $route(to, from) {
-        PM.setTransitionClass(to, from, (transitionClass) => {
-            this.transitionClass = transitionClass;
-        });
+    computed: {
+        transitionClass() {
+            return {
+                enter: PM.enterClass,
+                enterActive: `${PM.enterClass}-active`,
+                enterTo: `${PM.enterClass}-active`,
+                leave: PM.leaveClass,
+                leaveActive: `${PM.leaveClass}-active`,
+                leaveTo: `${PM.leaveClass}-to`
+            }
+        }
     }
-  }
 };
 </script>
     
 <style scoped>
 @import "~@/assets/css/reset.css";
+@import "~@/assets/css/animate.css";
 
 .main_root {
     display: flex;

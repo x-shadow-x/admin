@@ -14,10 +14,9 @@
 
 <script>
 export default {
-    name:'treeMenus',
+    name:'TreeMenus',
     props: ['menu'],
     mounted() {
     }
 }
 </script>
-
