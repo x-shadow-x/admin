@@ -45,6 +45,7 @@ export default {
     
 <style scoped>
 @import "~@/assets/css/reset.css";
+@import "~@/assets/css/main.css";
 @import "~@/assets/css/animate.css";
 
 .main_root {
@@ -66,6 +67,8 @@ export default {
 
 .main_body {
     display: flex;
-    flex-grow: 1;
+    flex-shrink: 0;
+    height: calc(100vh - 60px);
+    overflow: hidden;
 }
 </style>

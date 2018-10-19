@@ -1,5 +1,5 @@
 import AdminControl from '@/pages/admin-control';
-import Modules from '@/modules/module-config';
+import ModuleManager from '@/modules/module-config';
 
 export default [{
         path: '/',
@@ -12,7 +12,7 @@ export default [{
                 path: '/admin',
                 redirect: '/article'
             },
-            ...Modules.routes
+            ...ModuleManager.mosules.routes
         ],
     }
 ]

@@ -1,12 +1,11 @@
 const UserComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/user-comment-manager/pages/index')), 'content');
 
 const route = {
-    id: 'userComment',
     path: '/userComment',
     component: UserComment,
     meta: {
-        menu: 'userComment',
-        title: '用户评论管理'
+        title: '用户评论管理',
+        ids: 'comment-userComment'
     }
 };
 

@@ -1,22 +1,26 @@
 <template>
-    <div id="sideMenu" class="side_menu">
-        <Menu theme="dark" @on-select="onMenuSelect" :active-name="currentMenu">
-            <template v-for="item in menuTree">
-                <template v-if="item.children && item.children.length > 0">
-                    <tree-menus :key="item.id" :menu="item" />
-                </template>
-                <template v-else>
-                    <MenuItem :name="item.to" :key="item.id">
-                        <Icon :type="item.icon" />{{item.title}}
-                    </MenuItem>
-                </template>
-            </template>
-        </Menu>
+    <div id="sideMenu" class="side_menu_box">
+        <div class="scroll_out_box">
+            <div class="side_menu scroll_box">
+                <Menu theme="dark" @on-select="onMenuSelect" :active-name="currentMenu.parentId + '-' + currentMenu.id">
+                    <template v-for="item in menuTree">
+                        <template v-if="item.children && item.children.length > 0">
+                            <tree-menus :key="item.id" :menu="item" />
+                        </template>
+                        <template v-else>
+                            <MenuItem :name="item.parentId + '-' + item.id" :key="item.id">
+                                <Icon :type="item.icon" />{{item.title}}
+                            </MenuItem>
+                        </template>
+                    </template>
+                </Menu>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import Modules from '@/modules/module-config';
+import ModuleManager from '@/modules/module-config';
 import TreeMenus from '@/pages/admin-control/components/tree-menus';
 import PageHelper from '@/helper/page-helper.js';
 
@@ -31,7 +35,7 @@ export default {
 
     computed: {
         menuTree() {
-            return Modules.menuTree;
+            return ModuleManager.mosules.menuTree;
         },
         currentMenu() {
             return PageHelper.currentMenu;
@@ -40,18 +44,10 @@ export default {
 
     methods: {
         onMenuSelect(name) {
-            console.log(this.currentMenu, '1111111');
-            this.$router.push(name);
-            // this.$emit("select", name);
+            const currentMenu = ModuleManager.getMenu(name.split('-') || []);
+            this.pm.setOverrideAnim(currentMenu.animate);
+            this.$router.push(currentMenu.to);
             this.name = name;
-            // this.$emit("select", name);
-            // console.log(name);
-        }
-    },
-
-    watch: {
-        onMenuSelect(newVal) {
-            console.log(newVal, '=======onMenuSelect');
         }
     },
 
@@ -66,12 +62,26 @@ export default {
 </script>
 
 <style scoped>
-.side_menu {
+.side_menu_box {
+    height: 100%;
     position: relative;
     background: #282c34;
 }
 
-.side_menu .ivu-menu-submenu-title {
+.scroll_out_box {
+    width: 240px;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.side_menu {
+    width: 260px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.side_menu_box .ivu-menu-submenu-title {
     padding-left: 0; 
     padding-right: 0; 
 }

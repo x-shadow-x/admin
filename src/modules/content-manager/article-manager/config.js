@@ -5,8 +5,8 @@ const route = {
     path: '/article',
     component: Article,
     meta: {
-        menu: 'Article',
-        title: '文章管理'
+        title: '文章管理',
+        ids: 'content-article'
     }
 };
 

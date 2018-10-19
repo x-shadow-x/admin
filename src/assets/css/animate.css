@@ -22,7 +22,7 @@
 }
 
 .pre_normal_leave-to {
-    transform: translateX(10px);
+    transform: translateX(20px);
     opacity: 0;
 }
 
@@ -32,4 +32,46 @@
 
 .pre_normal_leave-active {
     transition: all .24s;
+}
+
+.special_enter {
+    opacity: 0;
+}
+
+.special_enter-active {
+    animation: bounce-in .5s linear .5s;
+    transition: opacity .24s .5s;
+}
+
+.special_leave-active {
+    animation: bounce-in .5s linear reverse;
+}
+
+.pre_special_enter {
+    opacity: 0;
+}
+
+.pre_special_leave-to {
+    transform: scale(0);
+}
+
+.pre_special_enter-active {
+    animation: bounce-in .5s linear .5s;
+    transition: opacity .24s .5s;
+}
+
+.pre_special_leave-active {
+    animation: bounce-in .5s linear reverse;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

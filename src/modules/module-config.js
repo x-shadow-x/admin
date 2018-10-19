@@ -9,7 +9,7 @@ class ModuleManager {
     constructor() {
         this._menus = {};
         this._routes = [];
-        this._menuTree = [];
+        this._menuTree = {};
     }
 
     get mosules() {
@@ -34,38 +34,44 @@ class ModuleManager {
         const parentId = menu.parentId || 'root';
         this._menus[parentId] = this._menus[parentId] || {
             groupId: parentId,
-            lists: []
+            lists: {}
         };
-        this._menus[parentId].lists.push(menu);
+        this._menus[parentId].lists[menu.id] = menu;
+    }
+
+    getMenu(ids) {
+        return (ids.length >= 2 && this._menus[ids[0]] && this._menus[ids[0]].lists[ids[1]]) || {};
     }
 
     create() {
-        const menus = {...this._menus}
+        const menus = {...this._menus};
         const rootLists = menus['root'].lists;
-        for(let i = 0, len = rootLists.length; i < len; i++) {
-            const item = rootLists[i];
-            this._menuTree.push({
+        for(let key in rootLists) {
+            const item = rootLists[key];
+            this._menuTree[item.id] = {
                 id: item.id,
+                parentId: item.parentId,
                 title: item.title,
                 to: item.to,
                 icon: item.icon,
                 children: []
-            });
+            };
         }
 
         delete menus['root']
-        for(let i = 0, len = this._menuTree.length; i < len; i++) {
-            this.butild(this._menuTree[i], menus);
+        for(let key in this._menuTree) {
+            this.butild(this._menuTree[key], menus);
         }
     }
 
     butild(parantNode, menus) {
         const menuItem = menus[parantNode.id];
-        if(menuItem && menuItem.lists && menuItem.lists.length > 0) {
-            for(let i = 0, len = menuItem.lists.length; i < len; i++) {
-                const item = menuItem.lists[i];
+        if(menuItem && menuItem.lists) {
+            for(let key in menuItem.lists) {
+                const item = menuItem.lists[key];
                 parantNode.children.push({
                     id: item.id,
+                    parentId: item.parentId,
                     title: item.title,
                     to: item.to,
                     icon: item.icon,
@@ -86,4 +92,4 @@ moduleManager
     .addMosule(guideComment)
     .addMosule(userComment)
     .create();
-export default moduleManager.mosules;
+export default moduleManager;

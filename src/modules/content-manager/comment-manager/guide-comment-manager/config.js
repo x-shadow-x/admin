@@ -1,12 +1,11 @@
 const GuideComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/guide-comment-manager/pages/index')), 'content');
 
 const route = {
-    id: 'guideComment',
     path: '/guideComment',
     component: GuideComment,
     meta: {
-        menu: 'guideComment',
-        title: '导购评论管理'
+        title: '导购评论管理',
+        ids: 'comment-guideComment'
     }
 };
 

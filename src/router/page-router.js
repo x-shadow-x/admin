@@ -4,10 +4,8 @@ import PageManager from "./page-manager";
 class PageRouter extends Router {
     constructor(obj) {
         super(obj);
-        // const pageManager = new PageManager();
-        const pageManager = PageManager;
-        this._pm = pageManager;
-        super.beforeEach(pageManager._beforeEachProxy.bind(pageManager));
+        this._pm = PageManager;
+        super.beforeEach(PageManager._beforeEachProxy.bind(PageManager));
     }
 
     get pm() {
@@ -16,6 +14,13 @@ class PageRouter extends Router {
 
     static install(Vue, options) {
         Router.install(Vue, options);
+        Vue.mixin({
+            data() {
+                return {
+                    pm: PageManager
+                }
+            }
+        });
     }
 
     beforeEach(fn) {

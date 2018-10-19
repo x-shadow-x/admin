@@ -4,6 +4,7 @@
  * 管理页面跳转的过渡动画
  */
 import Vue from "vue";
+import PageHelper from '@/helper/page-helper.js';
 
 const JUMP_WAY = {
     RE_FRESH: "Refresh",
@@ -48,6 +49,7 @@ const PageManager = new Vue({
                 this.pageToken = _to.query.pageToken;
                 if (this.jumpWay === JUMP_WAY.PREV && preJumpWay !== this.jumpWay) {
                     // 从其他跳转方式切换到返回跳转方式
+                    console.log(PageHelper.currentMenu);
                     this.enterClass = `pre_${this.enterClass}`;
                     this.leaveClass = `pre_${this.leaveClass}`;
                 } else if (this.jumpWay === JUMP_WAY.NEXT) {
@@ -70,8 +72,8 @@ const PageManager = new Vue({
         },
     
         setOverrideAnim(overrideAnim) {
-            this.enterClass = overrideAnim.enter || DEFAULT_ANIMATE.ENTER;
-            this.leaveClass = overrideAnim.leave || DEFAULT_ANIMATE.LEAVE;
+            this.enterClass = (overrideAnim && overrideAnim.enter) || DEFAULT_ANIMATE.ENTER;
+            this.leaveClass = (overrideAnim && overrideAnim.leave) || DEFAULT_ANIMATE.LEAVE;
         }
     }
 });

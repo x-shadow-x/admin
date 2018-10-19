@@ -1,7 +1,7 @@
 <template>
     <div class="control_main">
         <SideMenu />
-        <div class="contorl_content">
+        <div class="contorl_content scroll_box">
             <transition
                 :enter-class="transitionClass.enter"
                 :enter-active-class="transitionClass.enterActive"
@@ -23,9 +23,7 @@ import { PM } from "@/router/";
 export default {
     components: { SideMenu },
     data() {
-        return {
-            currentMenu: ''
-        };
+        return {};
     },
 
     computed: {
@@ -41,7 +39,12 @@ export default {
         }
     },
 
-    watch: {},
+    watch: {
+        $route(nv) {
+            PageHelper.setCurrentMenu(nv);
+            PageHelper.setCurrentRoute(nv);
+        }
+    },
     
     methods: {
         test() {}
@@ -49,6 +52,7 @@ export default {
     
     mounted() {
         PageHelper.setCurrentMenu(this.$route);
+        PageHelper.setCurrentRoute(this.$route);
     }
 }
 </script>
@@ -56,28 +60,14 @@ export default {
 <style scoped>
 .control_main {
     display: flex;
-    flex-grow: 1;
+    height: 100%;
     position: relative;
 }
 
 .contorl_content {
     flex-grow: 1;
-    overflow: auto;
-}
-
-.contorl_content::-webkit-scrollbar {
-    width: 10px;
-}
-
-.contorl_content::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    background: rgba(0, 0, 0, .2);
-}
-
-.contorl_content::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 </style>
 

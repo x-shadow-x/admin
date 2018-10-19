@@ -1,12 +1,11 @@
-const Count = r => require.ensure([], () => r(require('@/modules/content-manager/article-manager/pages/index')), 'analyse');
+const Count = r => require.ensure([], () => r(require('@/modules/count-analyse/pages/index')), 'analyse');
 
 const route = {
-    id: 'count',
     path: '/count',
     component: Count,
     meta: {
-        menu: 'Count',
-        title: '统计分析'
+        title: '统计分析',
+        ids: 'root-count'
     }
 };
 
@@ -17,8 +16,8 @@ const menu = {
     to: '/count',
     parentId: 'root',
     animate: {
-        enterClass: 'special_enter',
-        leaveClass: 'special_leave'
+        enter: 'special_enter',
+        leave: 'special_leave'
     }
 };
 

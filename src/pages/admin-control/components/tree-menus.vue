@@ -7,7 +7,7 @@
             <tree-menus :menu="item" :key="item.key"></tree-menus>
         </template>
     </Submenu>
-    <MenuItem v-else :name="menu.to" :key="menu.id">
+    <MenuItem v-else :name="menu.parentId + '-' + menu.id" :key="menu.id">
         <Icon :type="menu.icon" />{{menu.title}}
     </MenuItem>
 </template>
