@@ -34,12 +34,11 @@ const PageManager = new Vue({
                 _to.query = _to.query || {};
                 _to.replace = this.pageToken === 0;
                 _to.query.pageToken = +this.pageToken + 1;
-    
+                PageHelper.setCurrentMenu(_to);
                 next(_to);
                 return true;
             } else {
                 // 通过点击浏览器前进后退或者刷新按钮触发的路由变化，根据pageToken判断是哪种跳转方式~并记录当前pageToken
-                const preJumpWay = this.jumpWay;
                 this.jumpWay =
                     _to.query.pageToken > this.pageToken
                         ? JUMP_WAY.NEXT
@@ -47,14 +46,21 @@ const PageManager = new Vue({
                             ? JUMP_WAY.RE_FRESH
                             : JUMP_WAY.PREV;
                 this.pageToken = _to.query.pageToken;
-                if (this.jumpWay === JUMP_WAY.PREV && preJumpWay !== this.jumpWay) {
+                if (this.jumpWay === JUMP_WAY.PREV) {
                     // 从其他跳转方式切换到返回跳转方式
-                    console.log(PageHelper.currentMenu);
-                    this.enterClass = `pre_${this.enterClass}`;
-                    this.leaveClass = `pre_${this.leaveClass}`;
+                    const animateClass = PageHelper.currentMenu.animate || {
+                        enter: DEFAULT_ANIMATE.ENTER,
+                        leave: DEFAULT_ANIMATE.LEAVE
+                    };
+                    this.enterClass = `pre_${animateClass.enter}`;
+                    this.leaveClass = `pre_${animateClass.leave}`;
                 } else if (this.jumpWay === JUMP_WAY.NEXT) {
-                    this.enterClass = this.enterClass.replace('pre_', '');
-                    this.leaveClass = this.leaveClass.replace('pre_', '');
+                    const animateClass = PageHelper.currentMenu.animate || {
+                        enter: DEFAULT_ANIMATE.ENTER,
+                        leave: DEFAULT_ANIMATE.LEAVE
+                    };
+                    this.enterClass = animateClass.enter;
+                    this.leaveClass = animateClass.leave;
                 }
             }
     
@@ -77,84 +83,5 @@ const PageManager = new Vue({
         }
     }
 });
-
-// class PageManager {
-//     constructor() {
-//         this._pageToken = 0;
-//         this._enterClass = DEFAULT_ANIMATE.ENTER;
-//         this._leaveClass = DEFAULT_ANIMATE.LEAVE;
-//     }
-
-//     get jumpWay() {
-//         return this._jumpWay || JUMP_WAY.RE_FRESH;
-//     }
-
-//     get enterClass() {
-//         return this._enterClass;
-//     }
-
-//     get leaveClass() {
-//         return this._leaveClass;
-//     }
-
-//     _beforeEachProxy(to, from, next) {
-//         let _to = { ...to };
-//         if (!_to.query || !_to.query.pageToken) {
-//             _to.query = _to.query || {};
-//             _to.replace = this._pageToken === 0;
-//             _to.query.pageToken = +this._pageToken + 1;
-
-//             next(_to);
-//             return true;
-//         } else {
-//             // 通过点击浏览器前进后退或者刷新按钮触发的路由变化，根据pageToken判断是哪种跳转方式~并记录当前pageToken
-//             const preJumpWay = this._jumpWay;
-//             this._jumpWay =
-//                 _to.query.pageToken > this._pageToken
-//                     ? JUMP_WAY.NEXT
-//                     : _to.query.pageToken === this._pageToken
-//                         ? JUMP_WAY.RE_FRESH
-//                         : JUMP_WAY.PREV;
-//             this._pageToken = _to.query.pageToken;
-//             if(this._jumpWay === JUMP_WAY.PREV && preJumpWay !== this._jumpWay) {
-//                 console.log(123123);
-//                 // 从其他跳转方式切换到返回跳转方式
-//                 let tempClass = this._enterClass;
-//                 this._enterClass = this._leaveClass;
-//                 this._leaveClass = tempClass;
-//             }
-//         }
-
-//         if (this._beforeEach) {
-//             this._beforeEach(to, from, next);
-//         } else {
-//             next();
-//         }
-//     }
-
-//     setBeforeEach(fn) {
-//         if (fn && Object.prototype.toString.call(fn) === "[object Function]") {
-//             this._beforeEach = fn;
-//         }
-//     }
-
-//     setOverrideAnim(overrideAnim) {
-//         this._enterClass = overrideAnim.enter || DEFAULT_ANIMATE.ENTER;
-//         this._leaveClass = overrideAnim.leave || DEFAULT_ANIMATE.LEAVE;
-//     }
-
-//     setTransitionClass(vm, to, from, action) {
-//         if(this.jumpWay === JUMP_WAY.NEXT) {
-//             action({
-//                 enter: enter,
-//                 enterActive: enterActive,
-//                 enterTo: enterTo,
-//                 leave: leave,
-//                 leaveActive: leaveActive,
-//                 leaveTo: leaveTo
-//             })
-//         }
-//     }
-// }
 
 export default PageManager;

@@ -11,7 +11,6 @@ const PageHelper = new Vue({
         setCurrentMenu(route) {
             const ids = (route.meta && route.meta.ids) || '';
             this.currentMenu = ModuleManager.getMenu((ids && ids.split('-')) || []);
-            console.log(this.currentMenu);
         },
 
         setCurrentRoute(route) {

@@ -2,6 +2,7 @@
     <div class="control_main">
         <SideMenu />
         <div class="contorl_content scroll_box">
+            <tags-view />
             <transition
                 :enter-class="transitionClass.enter"
                 :enter-active-class="transitionClass.enterActive"
@@ -16,12 +17,13 @@
 </template>
 
 <script>
+import TagsView from '@/components/tags-view';
 import SideMenu from './components/side-menu';
 import PageHelper from '@/helper/page-helper.js';
 import { PM } from "@/router/";
 
 export default {
-    components: { SideMenu },
+    components: { SideMenu, TagsView },
     data() {
         return {};
     },
@@ -42,17 +44,15 @@ export default {
     watch: {
         $route(nv) {
             PageHelper.setCurrentMenu(nv);
-            PageHelper.setCurrentRoute(nv);
         }
     },
     
     methods: {
-        test() {}
+        test() {},
     },
     
     mounted() {
         PageHelper.setCurrentMenu(this.$route);
-        PageHelper.setCurrentRoute(this.$route);
     }
 }
 </script>
@@ -60,15 +60,22 @@ export default {
 <style scoped>
 .control_main {
     display: flex;
-    height: 100%;
-    position: relative;
+    height: 100%;    position: relative;
 }
 
 .contorl_content {
-    flex-grow: 1;
+    width: calc(100vw - 240px);
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.tab_bar {
+    margin: 10px;
+}
 </style>
 
-
+<style>
+.tab_bar .ivu-tabs-bar {
+    /* padding: 10px 20px 0 20px; */
+}
+</style>
