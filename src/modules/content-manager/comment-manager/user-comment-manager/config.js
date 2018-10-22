@@ -5,7 +5,7 @@ const route = {
     component: UserComment,
     meta: {
         title: '用户评论管理',
-        ids: 'comment-userComment'
+        id: 'userComment'
     }
 };
 

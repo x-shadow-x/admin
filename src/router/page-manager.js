@@ -38,6 +38,7 @@ const PageManager = new Vue({
                 next(_to);
                 return true;
             } else {
+                PageHelper.setCurrentMenu(to);
                 // 通过点击浏览器前进后退或者刷新按钮触发的路由变化，根据pageToken判断是哪种跳转方式~并记录当前pageToken
                 this.jumpWay =
                     _to.query.pageToken > this.pageToken

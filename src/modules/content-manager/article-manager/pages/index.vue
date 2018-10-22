@@ -6,6 +6,10 @@
 export default {
     data() {
         return {};
+    },
+
+    mounted() {
+        console.log('article 123');
     }
 }
 </script>

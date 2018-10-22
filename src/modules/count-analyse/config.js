@@ -5,7 +5,7 @@ const route = {
     component: Count,
     meta: {
         title: '统计分析',
-        ids: 'root-count'
+        id: 'count'
     }
 };
 

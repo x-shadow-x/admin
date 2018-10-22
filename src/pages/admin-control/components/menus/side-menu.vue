@@ -2,13 +2,13 @@
     <div id="sideMenu" class="side_menu_box">
         <div class="scroll_out_box">
             <div class="side_menu scroll_box">
-                <Menu theme="dark" @on-select="onMenuSelect" :active-name="currentMenu.parentId + '-' + currentMenu.id">
+                <Menu theme="dark"@on-select="onMenuSelect" :open-names="(currentMenu.openNames || '').split('-')" :active-name="currentMenu.id">
                     <template v-for="item in menuTree">
                         <template v-if="item.children && item.children.length > 0">
                             <tree-menus :key="item.id" :menu="item" />
                         </template>
                         <template v-else>
-                            <MenuItem :name="item.parentId + '-' + item.id" :key="item.id">
+                            <MenuItem :name="item.id" :key="item.id">
                                 <Icon :type="item.icon" />{{item.title}}
                             </MenuItem>
                         </template>
@@ -21,15 +21,15 @@
 
 <script>
 import ModuleManager from '@/modules/module-config';
-import TreeMenus from '@/pages/admin-control/components/tree-menus';
+import TreeMenus from '@/pages/admin-control/components/menus/tree-menus';
 import PageHelper from '@/helper/page-helper.js';
+import RouterHelper from '@/helper/router-helper.js';
 
 export default {
     data() {
         return {
             theme: 'dark',
-            name: '/article',
-            value: [20, 50]
+            name: '/article'
         }
     },
 
@@ -44,15 +44,17 @@ export default {
 
     methods: {
         onMenuSelect(name) {
-            const currentMenu = ModuleManager.getMenu(name.split('-') || []);
-            this.pm.setOverrideAnim(currentMenu.animate);
-            this.$router.push(currentMenu.to);
-            this.name = name;
-        }
+            const nextMenu = ModuleManager.getMenu(name.split('-') || []);
+            this.pm.setOverrideAnim(nextMenu.animate);
+            this.$router.push(nextMenu.to);
+            RouterHelper.addRoute({
+                title: nextMenu.title,
+                to: nextMenu.to
+            });
+        },
     },
 
     mounted() {
-        // console.log(PageHelper.currentMenu, '111111111');
     },
 
     components: {

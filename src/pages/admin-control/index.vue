@@ -10,16 +10,19 @@
                 :leave-class="transitionClass.leave"
                 :leave-active-class="transitionClass.leaveActive"
                 :leave-to-class="transitionClass.leaveTo">
-                <router-view class="transition_view"></router-view>
+                <keep-alive>
+                    <router-view class="transition_view"></router-view>
+                </keep-alive>
             </transition>
         </div>
     </div>
 </template>
 
 <script>
-import TagsView from '@/components/tags-view';
-import SideMenu from './components/side-menu';
+import TagsView from '@/pages/admin-control/components/tags-view';
+import SideMenu from '@/pages/admin-control/components/menus/side-menu';
 import PageHelper from '@/helper/page-helper.js';
+import RouterHelper from '@/helper/router-helper.js';
 import { PM } from "@/router/";
 
 export default {
@@ -40,27 +43,25 @@ export default {
             }
         }
     },
-
-    watch: {
-        $route(nv) {
-            PageHelper.setCurrentMenu(nv);
-        }
-    },
     
     methods: {
         test() {},
     },
     
     mounted() {
-        PageHelper.setCurrentMenu(this.$route);
+        RouterHelper.addRoute({
+            to: this.$route.path,
+            title: this.$route.meta.title
+        });
     }
 }
 </script>
 
 <style scoped>
 .control_main {
+    position: relative;
     display: flex;
-    height: 100%;    position: relative;
+    height: 100%;
 }
 
 .contorl_content {
@@ -71,11 +72,5 @@ export default {
 
 .tab_bar {
     margin: 10px;
-}
-</style>
-
-<style>
-.tab_bar .ivu-tabs-bar {
-    /* padding: 10px 20px 0 20px; */
 }
 </style>

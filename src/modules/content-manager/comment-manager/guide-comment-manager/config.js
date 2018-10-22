@@ -5,7 +5,7 @@ const route = {
     component: GuideComment,
     meta: {
         title: '导购评论管理',
-        ids: 'comment-guideComment'
+        id: 'guideComment'
     }
 };
 

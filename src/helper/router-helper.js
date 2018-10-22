@@ -6,36 +6,38 @@ import Vue from 'vue';
 export default new Vue({
     data() {
         return {
-            visitRouteList: [{
-                title: '统计分析',
-                to: '/count',
-            }, {
-                title: '文章管理文章管理文章管理文章管理文章管理文章管理',
-                to: '/article'
-            }, {
-                title: '文章管理2文章管理2文章管理2文章管理2文章管理2文章管理2',
-                to: '/article2'
-            }, {
-                title: '文章管理3文章管理3文章管理3文章管理3文章管理3文章管理3',
-                to: '/article3'
-            }, {
-                title: '文章管理4',
-                to: '/article4'
-            }, {
-                title: '文章管理5文章管理5文章管理5文章管理5',
-                to: '/article5'
-            }, {
-                title: '文章管理6',
-                to: '/article6'
-            }],
+            visitRouteList: [],
             currentTag: {}
         }
     },
 
     methods: {
-        addTag() {},
+        addRoute(nextRoute) {
+            for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
+                if(this.visitRouteList[i].to === nextRoute.to) {
+                    this.selectRoute(nextRoute.to);
+                    return;
+                }
+            }
+            this.visitRouteList.push(nextRoute);
+            this.selectRoute(nextRoute.to);
+        },
 
-        selectTag() {
+        selectRoute(to) {
+            for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
+                if(this.visitRouteList[i].to === to) {
+                    this.currentTag = this.visitRouteList[i];
+                    return;
+                }
+            }
+            this.currentTag = {};
+        },
+
+        closeRoute(index) {
+            this.visitRouteList.splice(index, 1);
+        },
+
+        getCurrentTag(to) {
             
         }
     }

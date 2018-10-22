@@ -1,10 +1,22 @@
 <template>
     <div class="tags_bar">
         <swiper :options="swiperOption">
-            <swiper-slide v-for="(item, index) in visitRouteList" class="tags_slide" :class="{active: index == 1}" :title="item.title" @click="selectTag">
+            <swiper-slide
+                v-for="(item, index) in visitRouteList"
+                class="tags_slide"
+                :class="{active: currentTag.to === item.to}"
+                :title="item.title"
+                :data-to="item.to"
+                @click.native="selectTag">
                 <router-link :to="item.to" class="tags_item">
                     <span class="tags_title">{{item.title}}</span>
-                    <Icon type="md-close-circle" class="close_btn" @click.prevent.stop="closedTag" size="18" />
+                    <Icon
+                        v-if="visitRouteList.length > 1"
+                        size="18"
+                        type="md-close-circle"
+                        class="close_btn"
+                        :data-index="index"
+                        @click.prevent.stop="closedTag"/>
                 </router-link>
             </swiper-slide>
         </swiper>
@@ -27,15 +39,25 @@ export default {
     computed: {
         visitRouteList() {
             return RouterHelper.visitRouteList;
+        },
+        currentTag() {
+            return RouterHelper.currentTag;
         }
     },
 
     methods: {
-        selectTag() {
-            
+        selectTag(e) {
+            RouterHelper.selectRoute(e.currentTarget.getAttribute('data-to'));
         },
-        closedTag() {
-            console.log(123);
+        closedTag(e) {
+            const index = e.currentTarget.getAttribute('data-index');
+            RouterHelper.closeRoute(index);
+            const routerLen = RouterHelper.visitRouteList.length;
+            const nextRoute = index <= routerLen - 1 ? RouterHelper.visitRouteList[index] : RouterHelper.visitRouteList[routerLen - 1];
+            if(nextRoute) {
+                this.$router.push(nextRoute.to);
+                RouterHelper.selectRoute(nextRoute.to);
+            }
         }
     }
 }
@@ -43,7 +65,6 @@ export default {
 
 <style scoped>
 .tags_bar {
-    padding-top: 10px;
     margin: 10px 0;
     box-shadow: 0 2px 4px #efefef;
     transition: all .24s;

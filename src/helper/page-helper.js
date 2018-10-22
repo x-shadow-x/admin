@@ -3,14 +3,14 @@ import ModuleManager from '@/modules/module-config';
 
 const PageHelper = new Vue({
     data: {
-        currentMenu: '',
+        currentMenu: {},
         currentRoute: {}
     },
 
     methods: {
         setCurrentMenu(route) {
-            const ids = (route.meta && route.meta.ids) || '';
-            this.currentMenu = ModuleManager.getMenu((ids && ids.split('-')) || []);
+            const id = (route.meta && route.meta.id) || '';
+            this.currentMenu = ModuleManager.getMenu(id);
         },
 
         setCurrentRoute(route) {

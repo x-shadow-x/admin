@@ -6,7 +6,7 @@ const route = {
     component: Article,
     meta: {
         title: '文章管理',
-        ids: 'content-article'
+        id: 'article'
     }
 };
 

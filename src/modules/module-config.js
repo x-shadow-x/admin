@@ -9,7 +9,8 @@ class ModuleManager {
     constructor() {
         this._menus = {};
         this._routes = [];
-        this._menuTree = {};
+        this._menuTree = [];
+        this._menuSet = {};
     }
 
     get mosules() {
@@ -34,49 +35,59 @@ class ModuleManager {
         const parentId = menu.parentId || 'root';
         this._menus[parentId] = this._menus[parentId] || {
             groupId: parentId,
-            lists: {}
+            lists: []
         };
-        this._menus[parentId].lists[menu.id] = menu;
+        this._menus[parentId].lists.push(menu);
     }
 
-    getMenu(ids) {
-        return (ids.length >= 2 && this._menus[ids[0]] && this._menus[ids[0]].lists[ids[1]]) || {};
+    getMenu(id) {
+        return this._menuSet[id];
     }
 
     create() {
         const menus = {...this._menus};
         const rootLists = menus['root'].lists;
-        for(let key in rootLists) {
-            const item = rootLists[key];
-            this._menuTree[item.id] = {
+        for(let i = 0, len = rootLists.length; i < len; i++) {
+            const item = rootLists[i];
+            const resultItem = {
                 id: item.id,
                 parentId: item.parentId,
+                openNames: '',
+                animate: item.animate,
                 title: item.title,
                 to: item.to,
                 icon: item.icon,
                 children: []
             };
+            this._menuSet[item.id] = resultItem;
+            this._menuTree.push(resultItem);
         }
 
-        delete menus['root']
-        for(let key in this._menuTree) {
-            this.butild(this._menuTree[key], menus);
+        delete menus['root'];
+        for(let i = 0, len = this._menuTree.length; i < len; i++) {
+            this.butild(this._menuTree[i], menus);
         }
+        console.log(this._menuSet);
     }
 
     butild(parantNode, menus) {
         const menuItem = menus[parantNode.id];
         if(menuItem && menuItem.lists) {
-            for(let key in menuItem.lists) {
-                const item = menuItem.lists[key];
-                parantNode.children.push({
+            const lists = menuItem.lists;
+            for(let i = 0, len = lists.length; i < len; i++) {
+                const item = lists[i];
+                const resultItem = {
                     id: item.id,
                     parentId: item.parentId,
+                    openNames: parantNode.openNames ? `${parantNode.openNames}-${parantNode.id}` : `${parantNode.id}`,
+                    animate: item.animate,
                     title: item.title,
                     to: item.to,
                     icon: item.icon,
                     children: []
-                });
+                };
+                this._menuSet[item.id] = resultItem;
+                parantNode.children.push(resultItem);
                 this.butild(parantNode.children[parantNode.children.length - 1], menus);
             }
         }
