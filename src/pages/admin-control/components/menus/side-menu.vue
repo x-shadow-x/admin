@@ -47,10 +47,10 @@ export default {
             const nextMenu = ModuleManager.getMenu(name.split('-') || []);
             this.pm.setOverrideAnim(nextMenu.animate);
             this.$router.push(nextMenu.to);
-            RouterHelper.addRoute({
-                title: nextMenu.title,
-                to: nextMenu.to
-            });
+            // RouterHelper.addRoute({
+            //     title: nextMenu.title,
+            //     to: nextMenu.to
+            // });
         },
     },
 

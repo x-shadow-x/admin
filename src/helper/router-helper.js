@@ -12,15 +12,42 @@ export default new Vue({
     },
 
     methods: {
-        addRoute(nextRoute) {
+        addRoute(route) {
+            const to = route.fullPath.replace(/&pageToken=\d+/, '');
             for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
-                if(this.visitRouteList[i].to === nextRoute.to) {
-                    this.selectRoute(nextRoute.to);
+                if(this.visitRouteList[i].to === to) {
+                    this.selectRoute(to);
                     return;
                 }
             }
-            this.visitRouteList.push(nextRoute);
-            this.selectRoute(nextRoute.to);
+            
+            this.visitRouteList.push({
+                to: to,
+                title: route.meta.title
+            });
+            this.selectRoute(to);
+        },
+
+        addRoute2(route) {
+            if(route.meta.sideMenu) {
+                for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
+                    if(this.visitRouteList[i].to === route.path) {
+                        this.selectRoute(route.path);
+                        return;
+                    }
+                }
+                this.visitRouteList.push({
+                    to: route.path,
+                    title: route.meta.title
+                });
+                this.selectRoute(route.path);
+            } else {
+                this.visitRouteList.push({
+                    to: route.path,
+                    title: route.meta.title
+                });
+                this.selectRoute(route.path);
+            }
         },
 
         selectRoute(to) {

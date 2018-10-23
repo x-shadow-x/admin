@@ -1,13 +1,14 @@
 const Count = r => require.ensure([], () => r(require('@/modules/count-analyse/pages/index')), 'analyse');
 
-const route = {
+const routes = [{
     path: '/count',
     component: Count,
     meta: {
         title: '统计分析',
+        sideMenu: true,
         id: 'count'
     }
-};
+}];
 
 const menu = {
     id: 'count',
@@ -22,6 +23,6 @@ const menu = {
 };
 
 export default {
-    route,
+    routes,
     menu
 };

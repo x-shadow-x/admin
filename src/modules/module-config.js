@@ -24,8 +24,8 @@ class ModuleManager {
         if(module && module.menu) {
             this.addMenu(module.menu);
         }
-        if(module && module.route) {
-            this._routes.push(module.route);
+        if(module && module.routes) {
+            this._routes.push(...module.routes);
         }
 
         return this;

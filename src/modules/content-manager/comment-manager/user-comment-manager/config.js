@@ -1,13 +1,14 @@
 const UserComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/user-comment-manager/pages/index')), 'content');
 
-const route = {
+const routes = [{
     path: '/userComment',
     component: UserComment,
     meta: {
         title: '用户评论管理',
+        sideMenu: true,
         id: 'userComment'
     }
-};
+}];
 
 const menu = {
     id: 'userComment',
@@ -18,6 +19,6 @@ const menu = {
 };
 
 export default {
-    route,
+    routes,
     menu
 };

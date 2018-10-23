@@ -48,12 +48,7 @@ export default {
         test() {},
     },
     
-    mounted() {
-        RouterHelper.addRoute({
-            to: this.$route.path,
-            title: this.$route.meta.title
-        });
-    }
+    mounted() {}
 }
 </script>
 

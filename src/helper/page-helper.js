@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import ModuleManager from '@/modules/module-config';
+import ModuleManager from '@/modules/module-config.js';
 
 const PageHelper = new Vue({
     data: {
