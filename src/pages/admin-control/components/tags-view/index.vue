@@ -5,18 +5,10 @@
                 v-for="(item, index) in visitRouteList"
                 class="tags_slide"
                 :class="{active: currentTag.to === item.to}"
-                :title="item.title"
-                :data-to="item.to"
-                @click.native="selectTag">
+                :title="item.title">
                 <router-link :to="item.to" class="tags_item">
                     <span class="tags_title">{{item.title}}</span>
-                    <Icon
-                        v-if="visitRouteList.length > 1"
-                        size="18"
-                        type="md-close-circle"
-                        class="close_btn"
-                        :data-index="index"
-                        @click.prevent.stop="closedTag"/>
+                    <Icon v-if="visitRouteList.length > 1" size="18" type="md-close-circle" class="close_btn" :data-index="index" @click.prevent.stop="closedTag"/>
                 </router-link>
             </swiper-slide>
         </swiper>
@@ -46,9 +38,6 @@ export default {
     },
 
     methods: {
-        selectTag(e) {
-            RouterHelper.selectRoute(e.currentTarget.getAttribute('data-to'));
-        },
         closedTag(e) {
             const index = e.currentTarget.getAttribute('data-index');
             RouterHelper.closeRoute(index);

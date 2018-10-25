@@ -7,11 +7,13 @@
             :data="tableList"
             border
             @on-row-click="selectRow"></Table>
+            <Button type="primary" @click="test">test</Button>
     </div>
 </template>
 
 <script>
 import Mixin from './mixin.js';
+import RouterHelper from '@/helper/router-helper.js';
 export default {
     mixins: [Mixin],
     data() {
@@ -31,14 +33,15 @@ export default {
     },
 
     mounted() {
-        console.log('article 123');
     },
 
     methods: {
         selectRow(row, index) {
-            console.log(row, index);
-            console.log(this.$route);
             this.$router.push(`/article/detail?row=${index}`);
+        },
+
+        test() {
+            console.log(RouterHelper.visitRouteList);
         }
     }
 }
