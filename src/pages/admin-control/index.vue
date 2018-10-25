@@ -10,7 +10,9 @@
                 :leave-class="transitionClass.leave"
                 :leave-active-class="transitionClass.leaveActive"
                 :leave-to-class="transitionClass.leaveTo">
-                    <router-view class="transition_view"></router-view>
+                    <keep-alive>
+                        <router-view :key="key" class="transition_view"></router-view>
+                    </keep-alive>
             </transition>
         </div>
     </div>
@@ -39,6 +41,9 @@ export default {
                 leaveActive: `${PM.leaveClass}-active`,
                 leaveTo: `${PM.leaveClass}-to`
             }
+        },
+        key() {
+            return this.$route.fullPath.replace(/[&?]pageToken=\d+/, '');
         }
     },
     

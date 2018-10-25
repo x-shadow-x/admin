@@ -17,31 +17,19 @@ export default new Vue({
             const to = route.fullPath.replace(/[&?]pageToken=\d+/, '');
             for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
                 if(this.visitRouteList[i].to === to) {
-                    this.selectRoute(to);
+                    this.setCurrentRoute(to);
                     return;
                 }
             }
             
             this.visitRouteList.push({
                 to: to,
-                title: route.meta.title,
-                vueInstance: null
+                title: route.meta.title
             });
-            this.selectRoute(to);
+            this.setCurrentRoute(to);
         },
 
-        setInstance(route, instance) {
-            const to = route.fullPath.replace(/[&?]pageToken=\d+/, '');
-            for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
-                if(this.visitRouteList[i].to === to && !this.visitRouteList[i].vueInstance) {
-                // if(this.visitRouteList[i].to === to) {
-                    this.visitRouteList[i].vueInstance = instance;
-                    return;
-                }
-            }
-        },
-
-        selectRoute(reference) {
+        setCurrentRoute(reference) {
             const to = Object.prototype.toString.call(reference) === '[object String]'
                         ? reference
                         : reference.fullPath && reference.fullPath.replace(/[&?]pageToken=\d+/, '');
@@ -51,20 +39,14 @@ export default new Vue({
             for(let i = 0, len = this.visitRouteList.length; i < len; i++) {
                 if(this.visitRouteList[i].to === to) {
                     this.currentTag = this.visitRouteList[i];
-                    console.log(this.currentTag, '=============');
                     return;
                 }
             }
             this.currentTag = {};
-            console.log(this.currentTag, '-----------------');
         },
 
         closeRoute(index) {
             this.visitRouteList.splice(index, 1);
-        },
-
-        getCurrentTag(to) {
-            
         }
     }
 });

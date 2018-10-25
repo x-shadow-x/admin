@@ -45,7 +45,7 @@ export default {
             const nextRoute = index <= routerLen - 1 ? RouterHelper.visitRouteList[index] : RouterHelper.visitRouteList[routerLen - 1];
             if(nextRoute) {
                 this.$router.push(nextRoute.to);
-                RouterHelper.selectRoute(nextRoute.to);
+                RouterHelper.setCurrentRoute(nextRoute.to);
             }
         }
     }
