@@ -32,7 +32,7 @@ const PageManager = new Vue({
     methods: {
         _beforeEachProxy(to, from, next) {
             let _to = { ...to };
-            if (!_to.query || !_to.query.pageToken) {
+            if (!_to.query || !_to.query.pageToken) { // 第一次打开当前路由页
                 _to.query = _to.query || {};
                 _to.replace = this.pageToken === 0;
                 _to.query.pageToken = +this.pageToken + 1;
@@ -57,6 +57,7 @@ const PageManager = new Vue({
 
         _handleTag(to) {
             const menu = ModuleManager.getMenu(to.meta.id);
+            this.setOverrideAnim(menu.animate);
             RouterHelper.addRoute(to);
         },
 

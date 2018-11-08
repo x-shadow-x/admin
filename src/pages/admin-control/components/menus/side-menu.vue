@@ -44,13 +44,8 @@ export default {
 
     methods: {
         onMenuSelect(name) {
-            const nextMenu = ModuleManager.getMenu(name.split('-') || []);
-            this.pm.setOverrideAnim(nextMenu.animate);
+            const nextMenu = ModuleManager.getMenu(name);
             this.$router.push(nextMenu.to);
-            // RouterHelper.addRoute({
-            //     title: nextMenu.title,
-            //     to: nextMenu.to
-            // });
         },
     },
 

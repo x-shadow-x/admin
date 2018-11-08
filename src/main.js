@@ -4,6 +4,7 @@ import '@/components/iview';
 import '@/components/swiper';
 import router from '@/router';
 import '@/assets/css/main.css';
+import '@/helper/request-helper.js';
 
 Vue.config.productionTip = false;
 
