@@ -24,7 +24,7 @@ export default new Vue({
             const timeStamp = new Date().getTime();
             this.visitRouteList.push({
                 to: to,
-                key: `${route.fullPath}${timeStamp}`,
+                timeStamp: timeStamp,
                 title: route.meta.title
             });
             this.setCurrentRoute(to);

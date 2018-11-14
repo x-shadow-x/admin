@@ -43,8 +43,7 @@ export default {
             }
         },
         key() {
-            return RouterHelper.currentTag.key;
-            // return this.$route.fullPath.replace(/[&?]pageToken=\d+/, '');
+            return this.$route.fullPath.replace(/[&?]pageToken=\d+/, RouterHelper.currentTag.timeStamp);
         }
     },
     
