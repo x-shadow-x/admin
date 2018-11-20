@@ -4,6 +4,7 @@ import article from './content-manager/article-manager/config';
 import comment from './content-manager/comment-manager/config';
 import guideComment from './content-manager/comment-manager/guide-comment-manager/config';
 import userComment from './content-manager/comment-manager/user-comment-manager/config';
+import advert from './advert/config';
 
 class ModuleManager {
     constructor() {
@@ -102,5 +103,6 @@ moduleManager
     .addMosule(comment)
     .addMosule(guideComment)
     .addMosule(userComment)
+    .addMosule(advert)
     .create();
 export default moduleManager;
