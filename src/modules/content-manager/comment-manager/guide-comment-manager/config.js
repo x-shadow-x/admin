@@ -1,4 +1,5 @@
-const GuideComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/guide-comment-manager/pages/index')), 'content');
+// const GuideComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/guide-comment-manager/pages/index')), 'content');
+const GuideComment = () => import(/* webpackChunkName: "content" */ '@/modules/content-manager/comment-manager/guide-comment-manager/pages/index');
 
 const routes = [{
     path: '/guideComment',

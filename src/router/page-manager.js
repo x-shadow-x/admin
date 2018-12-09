@@ -4,9 +4,9 @@
  * 管理页面跳转的过渡动画
  */
 import Vue from "vue";
-import PageHelper from '@/helper/page-helper.js';
+import PageHelper from '@/router/page-helper.js';
 import RouterHelper from '@/helper/router-helper.js';
-import ModuleManager from '@/modules/module-config.js';
+// import ModuleManager from '@/modules/module-config.js';
 
 const JUMP_WAY = {
     RE_FRESH: "Refresh",
@@ -36,16 +36,16 @@ const PageManager = new Vue({
                 _to.query = _to.query || {};
                 _to.replace = this.pageToken === 0;
                 _to.query.pageToken = +this.pageToken + 1;
-                PageHelper.setCurrentMenu(_to);
+                // PageHelper.setCurrentMenu(_to);
                 next(_to);
                 return true;
             } else {
                 this._handleTag(to);
                 PageHelper.setCurrentMenu(to);
                 // 通过点击浏览器前进后退或者刷新按钮触发的路由变化，根据pageToken判断是哪种跳转方式~并记录当前pageToken
-                this.pageToken = to.query.pageToken;
                 this._updateJumpWay(to);
                 this._updateAnimate();
+                this.pageToken = to.query.pageToken;
             }
     
             if (this._beforeEach) {
@@ -56,8 +56,8 @@ const PageManager = new Vue({
         },
 
         _handleTag(to) {
-            const menu = ModuleManager.getMenu(to.meta.id);
-            this.setOverrideAnim(menu.animate);
+            // const menu = ModuleManager.getMenu(to.meta.id);
+            // this.setOverrideAnim(menu.animate);
             RouterHelper.addRoute(to);
         },
 
@@ -71,19 +71,15 @@ const PageManager = new Vue({
         },
 
         _updateAnimate() {
+            const animateClass = PageHelper.currentMenu.animate || {
+                enter: DEFAULT_ANIMATE.ENTER,
+                leave: DEFAULT_ANIMATE.LEAVE
+            };
             if (this.jumpWay === JUMP_WAY.PREV) {
                 // 从其他跳转方式切换到返回跳转方式
-                const animateClass = PageHelper.currentMenu.animate || {
-                    enter: DEFAULT_ANIMATE.ENTER,
-                    leave: DEFAULT_ANIMATE.LEAVE
-                };
                 this.enterClass = `pre_${animateClass.enter}`;
                 this.leaveClass = `pre_${animateClass.leave}`;
             } else if (this.jumpWay === JUMP_WAY.NEXT) {
-                const animateClass = PageHelper.currentMenu.animate || {
-                    enter: DEFAULT_ANIMATE.ENTER,
-                    leave: DEFAULT_ANIMATE.LEAVE
-                };
                 this.enterClass = animateClass.enter;
                 this.leaveClass = animateClass.leave;
             }

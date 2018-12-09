@@ -5,5 +5,12 @@ module.exports = {
             		javascriptEnabled: true // 设置为true
         	}
     	}
-	}
+    },
+    configureWebpack: config => {
+        config.externals = {
+            ...(config.externals || {}),
+            vue: "Vue",
+            iview: "iview"
+        };
+    }
 }

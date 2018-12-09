@@ -1,4 +1,5 @@
-const AdvertEdit = r => require.ensure([], () => r(require("@/modules/advert/pages/edit")), "advert");
+// const AdvertEdit = r => require.ensure([], () => r(require("@/modules/advert/pages/edit")), "advert");
+const AdvertEdit = () => import(/* webpackChunkName: "advert"*/ '@/modules/advert/pages/edit');
 
 const routes = [{
     path: "/advert",

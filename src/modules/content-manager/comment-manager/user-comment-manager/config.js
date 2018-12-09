@@ -1,5 +1,5 @@
-const UserComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/user-comment-manager/pages/index')), 'content');
-
+// const UserComment = r => require.ensure([], () => r(require('@/modules/content-manager/comment-manager/user-comment-manager/pages/index')), 'content');
+const UserComment = () => import(/* webpackChunkName: "content" */ '@/modules/content-manager/comment-manager/user-comment-manager/pages/index');
 const routes = [{
     path: '/userComment',
     component: UserComment,

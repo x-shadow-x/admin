@@ -1,4 +1,5 @@
-const Count = r => require.ensure([], () => r(require('@/modules/count-analyse/pages/index')), 'analyse');
+// const Count = r => require.ensure([], () => r(require('@/modules/count-analyse/pages/index')), 'analyse');
+const Count = () => import(/* webpackChunkName: "analyse" */ '@/modules/count-analyse/pages/index');
 
 const routes = [{
     path: '/count',

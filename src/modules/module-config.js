@@ -46,6 +46,7 @@ class ModuleManager {
     }
 
     create() {
+        console.log(this._menus);
         const menus = {...this._menus};
         const rootLists = menus['root'].lists;
         for(let i = 0, len = rootLists.length; i < len; i++) {

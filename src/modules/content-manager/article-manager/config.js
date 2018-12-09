@@ -1,5 +1,7 @@
-const Article = r => require.ensure([], () => r(require('@/modules/content-manager/article-manager/pages/index')), 'content');
-const ArticleDetail = r => require.ensure([], () => r(require('@/modules/content-manager/article-manager/pages/detail')), 'content');
+// const Article = r => require.ensure([], () => r(require('@/modules/content-manager/article-manager/pages/index')), 'content');
+// const ArticleDetail = r => require.ensure([], () => r(require('@/modules/content-manager/article-manager/pages/detail')), 'content');
+const Article = () => import(/* webpackChunkName: "content" */ '@/modules/content-manager/article-manager/pages/index');
+const ArticleDetail = () => import(/* webpackChunkName: "content" */ '@/modules/content-manager/article-manager/pages/detail');
 
 const routes = [{
     id: 'article',

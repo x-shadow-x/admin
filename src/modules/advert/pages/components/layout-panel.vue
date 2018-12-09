@@ -10,22 +10,22 @@
                     <Alert type="warning" show-icon>面板尺寸以750px为基准</Alert>
                     <div class="edit-box">
                         <EditItem name="宽度" label="单位（px）">
-                            <Input slot="edit" size="large" v-model="width" clearable></Input>
-                            <!-- <Input slot="edit" size="large" v-model="width" clearable>
+                            <!-- <Input slot="edit" size="large" v-model="width" clearable></Input> -->
+                            <Input slot="edit" size="large" v-model="width" clearable>
                                 <Select v-model="widthUnit" slot="append" style="width: 70px">
                                     <Option value="px">px</Option>
                                     <Option value="%">%</Option>
                                 </Select>
-                            </Input> -->
+                            </Input>
                         </EditItem>
                         <EditItem name="高度" label="单位（px）" v-show="currentNode.type != 'Group'">
-                            <Input slot="edit" size="large" v-model="height" clearable></Input>
-                            <!-- <Input slot="edit" size="large" v-model="height" clearable>
+                            <!-- <Input slot="edit" size="large" v-model="height" clearable></Input> -->
+                            <Input slot="edit" size="large" v-model="height" clearable>
                                 <Select v-model="heightUnit" slot="append" style="width: 70px">
                                     <Option value="px">px</Option>
                                     <Option value="%">%</Option>
                                 </Select>
-                            </Input> -->
+                            </Input>
                         </EditItem>
                         <EditItem name="内边距" label="对应上右下左">
                             <Input slot="edit" size="large" v-model="padding" clearable />
@@ -514,6 +514,7 @@ export default {
     white-space: nowrap;
     transition: all 0.24s;
     background: #fff;
+    z-index: 2;
 }
 
 .edit-panel-box {

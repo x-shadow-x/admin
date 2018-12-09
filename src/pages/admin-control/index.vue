@@ -21,10 +21,10 @@
 <script>
 import TagsView from '@/pages/admin-control/components/tags-view';
 import SideMenu from '@/pages/admin-control/components/menus/side-menu';
-import PageHelper from '@/helper/page-helper.js';
 import RouterHelper from '@/helper/router-helper.js';
 import { PM } from "@/router/";
-
+let orianglPath;
+let orianglKey
 export default {
     components: { SideMenu, TagsView },
     data() {
@@ -36,13 +36,18 @@ export default {
             return {
                 enter: PM.enterClass,
                 enterActive: `${PM.enterClass}-active`,
-                enterTo: `${PM.enterClass}-active`,
+                enterTo: `${PM.enterClass}-to`,
                 leave: PM.leaveClass,
                 leaveActive: `${PM.leaveClass}-active`,
                 leaveTo: `${PM.leaveClass}-to`
             }
         },
         key() {
+            if(orianglPath == this.$route.fullPath) {
+                return orianglKey;
+            }
+            orianglPath = this.$route.fullPath;
+            orianglKey = this.$route.fullPath.replace(/[&?]pageToken=\d+/, RouterHelper.currentTag.timeStamp);
             return this.$route.fullPath.replace(/[&?]pageToken=\d+/, RouterHelper.currentTag.timeStamp);
         }
     },
