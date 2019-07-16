@@ -21,10 +21,8 @@ export default new Vue({
                     return;
                 }
             }
-            const timeStamp = new Date().getTime();
             this.visitRouteList.push({
                 to: to,
-                timeStamp: timeStamp,
                 title: route.meta.title
             });
             this.setCurrentRoute(to);
@@ -43,6 +41,7 @@ export default new Vue({
                     return;
                 }
             }
+            
             this.currentTag = {};
         },
 

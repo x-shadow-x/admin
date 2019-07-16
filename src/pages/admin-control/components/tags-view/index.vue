@@ -4,6 +4,7 @@
             <swiper-slide
                 v-for="(item, index) in visitRouteList"
                 class="tags_slide"
+                :key="index"
                 :class="{active: currentTag.to === item.to}"
                 :title="item.title">
                 <router-link :to="item.to" class="tags_item">
@@ -40,12 +41,15 @@ export default {
     methods: {
         closedTag(e) {
             const index = e.currentTarget.getAttribute('data-index');
+            const currentTo = RouterHelper.visitRouteList[index].to;
             RouterHelper.closeRoute(index);
-            const routerLen = RouterHelper.visitRouteList.length;
-            const nextRoute = index <= routerLen - 1 ? RouterHelper.visitRouteList[index] : RouterHelper.visitRouteList[routerLen - 1];
-            if(nextRoute) {
-                this.$router.push(nextRoute.to);
-                RouterHelper.setCurrentRoute(nextRoute.to);
+            if(this.currentTag.to === currentTo) {
+                const routerLen = RouterHelper.visitRouteList.length;
+                const nextRoute = index <= routerLen - 1 ? RouterHelper.visitRouteList[index] : RouterHelper.visitRouteList[routerLen - 1];
+                if(nextRoute) {
+                    this.$router.push(nextRoute.to);
+                    RouterHelper.setCurrentRoute(nextRoute.to);
+                }
             }
         }
     }

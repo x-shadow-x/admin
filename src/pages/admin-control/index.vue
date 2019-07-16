@@ -47,8 +47,8 @@ export default {
                 return orianglKey;
             }
             orianglPath = this.$route.fullPath;
-            orianglKey = this.$route.fullPath.replace(/[&?]pageToken=\d+/, RouterHelper.currentTag.timeStamp);
-            return this.$route.fullPath.replace(/[&?]pageToken=\d+/, RouterHelper.currentTag.timeStamp);
+            orianglKey = this.$route.fullPath.replace(/[&?]pageToken=\d+/, '');
+            return this.$route.fullPath.replace(/[&?]pageToken=\d+/, '');
         }
     },
     
