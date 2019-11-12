@@ -508,7 +508,7 @@ export default {
 
 .edit-panel {
     position: fixed;
-    right: 20px;
+    left: 1020px;
     top: 50%;
     transform: translateY(-50%);
     white-space: nowrap;

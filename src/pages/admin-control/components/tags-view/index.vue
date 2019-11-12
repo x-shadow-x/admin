@@ -5,6 +5,7 @@
                 v-for="(item, index) in visitRouteList"
                 class="tags_slide"
                 :class="{active: currentTag.to === item.to}"
+                :key="item.timeStamp"
                 :title="item.title">
                 <router-link :to="item.to" class="tags_item">
                     <span class="tags_title">{{item.title}}</span>
@@ -30,6 +31,7 @@ export default {
 
     computed: {
         visitRouteList() {
+            console.info(RouterHelper.visitRouteList);
             return RouterHelper.visitRouteList;
         },
         currentTag() {

@@ -7,7 +7,7 @@
             <button class="upload-img-btn3" @click="del">删除</button>
         </div>
         <transition-group v-else ref="uploadImgAnim" name="upload-img-anim" class=" upload-img-grid" tag="div">
-            <div v-for="(url,index) in mImgs" :key="index" class="upload-img-item" v-if="index<imgCount">
+            <div v-for="(url,index) in mImgs" :key="url" class="upload-img-item" v-if="index<imgCount">
                 <img :src="url" />
                 <button class="upload-img-btn1" @click="show(index)">预览</button>
                 <Upload class="upload-img-btn2" @click="edit(index)" :show-upload-list="false" :before-upload="e=>handleBeforeUpload(e,index)" action="/">编辑</Upload>

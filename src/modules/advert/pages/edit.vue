@@ -4,20 +4,8 @@
             <div class="bg-shadow padding20">
                 <h3 class="card-title-edit">入口管理</h3>
                 <div class="card-body-edit">
-                    <EditItem name="自定义页面名称" label="必填">
+                    <EditItem name="自定义页面名称">
                         <Input slot="edit" size="large" v-model="entryName" clearable />
-                    </EditItem>
-                    <EditItem name="是否首页">
-                        <i-switch slot="edit" v-model="enable">
-                            <span slot="open">开</span>
-                            <span slot="close">关</span>
-                        </i-switch>
-                    </EditItem>
-                    <EditItem name="是否启用">
-                        <i-switch slot="edit" v-model="isTest">
-                            <span slot="open">是</span>
-                            <span slot="close">否</span>
-                        </i-switch>
                     </EditItem>
 
                     <div class="bg-shadow layout-outer-box">
@@ -228,6 +216,7 @@ export default {
 <style scoped>
 .layout-outer-box {
     width: 752px;
+    margin-top: 20px;
 }
 
 .handle-box {
@@ -241,5 +230,9 @@ export default {
 .button-box {
     flex: 1;
     padding: 0 10px;
+}
+
+.card-body-toolbar {
+    margin-top: 20px;
 }
 </style>
